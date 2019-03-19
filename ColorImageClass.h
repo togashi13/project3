@@ -1,7 +1,7 @@
 #ifndef _COLORIMAGECLASS_H_
 #define _COLORIAMGECLASS_H_
 
-#include "const_pro2.h"
+#include "const_proj3.h"
 #include "ColorClass.h"
 #include "RowColumnClass.h"
 

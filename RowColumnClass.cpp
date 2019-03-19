@@ -2,8 +2,9 @@
 using namespace std;
 
 #include "RowColumnClass.h"
+#include "const_proj3.h"
 
-RowColumnClass::RowColumnClass(): row(-99999), col(-99999)
+RowColumnClass::RowColumnClass(): row(INIT_ROWCOL), col(INIT_ROWCOL)
 {;}
 
 RowColumnClass::RowColumnClass(

@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "const_pro2.h"
+#include "const_proj3.h"
 #include "ColorClass.h"
 #include "RowColumnClass.h"
 #include "ColorImageClass.h"

@@ -2,7 +2,8 @@
 using namespace std;
 
 #include "ColorClass.h"
-#include "globf_pro2.h"
+#include "globf_proj3.h"
+#include "const_proj3.h"
 
 
 // int clipInt(
@@ -25,27 +26,27 @@ ColorClass::ColorClass(
 
 void ColorClass::setToBlack()
 {
-   setTo(0, 0, 0);
+   setTo(COLOR_MIN, COLOR_MIN, COLOR_MIN);
 }
 
 void ColorClass::setToRed()
 {
-   setTo(1000, 0, 0);
+   setTo(COLOR_MAX, COLOR_MIN, COLOR_MIN);
 }
 
 void ColorClass::setToGreen()
 {
-   setTo(0, 1000, 0);
+   setTo(COLOR_MIN, COLOR_MAX, COLOR_MIN);
 }
 
 void ColorClass::setToBlue()
 {
-   setTo(0, 0, 1000);
+   setTo(COLOR_MIN, COLOR_MIN, COLOR_MAX);
 }
 
 void ColorClass::setToWhite()
 {
-   setTo(1000, 1000, 1000);
+   setTo(COLOR_MAX, COLOR_MAX, COLOR_MAX);
 }
 
 
@@ -81,7 +82,7 @@ bool ColorClass::subtractColor(
      )
 {
    return clippixels(red - rhs.red, green - rhs.green,
-    blue - rhs.blue);
+      blue - rhs.blue);
 
 }
 
@@ -115,6 +116,7 @@ bool ColorClass::clippixels(
       return true;
    }
 }
+
 // int clipInt(int colToClip)
 // {
 //    if (colToClip < 0)
