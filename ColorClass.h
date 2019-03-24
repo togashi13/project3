@@ -1,6 +1,7 @@
 #ifndef _COLORCLASS_H_
 #define _COLORCLASS_H_
 
+#include "globf_proj3.h"
 class ColorClass
 {
    private:
@@ -67,6 +68,8 @@ class ColorClass
 
       void printComponentValues();
       //{}"R: <red> G: <green> B: <blue>", no newl.
+
+      bool readInColor(ifstream &colorFile);
 };
 
 #endif

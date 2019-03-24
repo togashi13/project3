@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <fstream>
 using namespace std;
 
 #include "ColorClass.h"
@@ -129,3 +131,28 @@ bool ColorClass::clippixels(
 //    }
    
 // }
+
+bool ColorClass::readInColor(ifstream &colorFile)
+{        
+   int redVal;
+   int greenVal;
+   int blueVal;
+
+   colorFile >> redVal >> greenVal >> blueVal;
+   if (colorFile.fail()) 
+   {
+      clearFileInput(colorFile);
+      cout << "Error Found in Image File: " 
+      << "The Color Value should be Integer " 
+      << "not Space or other types " << endl;
+      return false;
+   }
+
+   if (setTo(redVal, greenVal, blueVal))
+   {
+      cout << "Error Found in Image File: The Color Value of Color " 
+      << "should be [ " << MIN_COLOR_VALUE << "  " 
+      << MAX_COLOR_VALUE << " ]" << endl;
+      return false;
+   }
+}

@@ -9,9 +9,10 @@
 class ColorImageClass
 {
 private:
-
-   ColorClass pixels [IMAGE_ROW][IMAGE_COL];
-   
+   int numRows;
+   int numColumns;
+   // ColorClass pixels [IMAGE_ROW][IMAGE_COL];
+   ColorClass **pixels;
    //10 rows x 18 cols, but the size of the 
    //image can be changed easily.
 public:
@@ -60,6 +61,18 @@ public:
    //{}each pixels is printed using ColorClass format.
    //  newl after the last pixels of each row.
    //  -- between each pixels.
+
+   void readInImage(ifstream imageFile);
+   //with this thing, you read in the image.
+
+       // This function aims to clear all the input in buffer
+    void clearFileInput(ifstream &inFile);
+
+    // This function aims to clear all the input in buffer
+    void clearUserInput();
+    
+    bool readInImage(string fileName);
+
 
 
 };

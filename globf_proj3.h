@@ -1,5 +1,7 @@
-#ifndef GLOBF_PRO2
-#define GLOBF_PRO2
+#ifndef GLOBF_PROJ3
+#define GLOBF_PROJ3
+
+#include<fstream>
 
 #include "const_proj3.h"
 
@@ -16,5 +18,17 @@ int clipInt(int colToClip)
    
 }
 
+void clearFileInput(ifstream &inFile)
+{
+    inFile.clear();
+    inFile.ignore(DEFAULT_CONSUME, '\n');
+}
+
+// This function aims to clear all the input in buffer
+void clearUserInput()
+{
+    cin.clear();
+    cin.ignore(DEFAULT_CONSUME, '\n');
+}
 #endif
 
