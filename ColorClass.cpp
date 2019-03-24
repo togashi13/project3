@@ -4,7 +4,8 @@
 using namespace std;
 
 #include "ColorClass.h"
-#include "globf_proj3.h"
+#include "clipInt.h"
+#include "clearFileInput.h"
 #include "const_proj3.h"
 
 
@@ -59,7 +60,7 @@ bool ColorClass::setTo(
                  )
 {
 
-   return clippixels(inRed, inGreen, inBlue);
+   return clipPixels(inRed, inGreen, inBlue);
 
 }
 
@@ -68,14 +69,14 @@ bool ColorClass::setTo(
                  )
 {
 
-   return clippixels(inColor.red, inColor.green, inColor.blue);
+   return clipPixels(inColor.red, inColor.green, inColor.blue);
 
 }
 
 bool ColorClass::addColor(
      ColorClass &rhs) 
 {
-   return clippixels(red + rhs.red, green + rhs.green, 
+   return clipPixels(red + rhs.red, green + rhs.green, 
       blue + rhs.blue);
 }
 
@@ -83,7 +84,7 @@ bool ColorClass::subtractColor(
      ColorClass &rhs
      )
 {
-   return clippixels(red - rhs.red, green - rhs.green,
+   return clipPixels(red - rhs.red, green - rhs.green,
       blue - rhs.blue);
 
 }
@@ -92,7 +93,7 @@ bool ColorClass::adjustBrightness(
      double adjFactor
      )
 {
-  return clippixels(int(red * adjFactor), int(green * adjFactor), 
+  return clipPixels(int(red * adjFactor), int(green * adjFactor), 
    int(blue * adjFactor));
 }
 
@@ -101,7 +102,7 @@ void ColorClass::printComponentValues()
    cout << "R: " << red << " G: " << green << " B: " << blue;
 }
 
-bool ColorClass::clippixels(
+bool ColorClass::clipPixels(
      int inRed,
      int inGreen,
      int inBlue
@@ -154,5 +155,7 @@ bool ColorClass::readInColor(ifstream &colorFile)
       << "should be [ " << MIN_COLOR_VALUE << "  " 
       << MAX_COLOR_VALUE << " ]" << endl;
       return false;
+   }else{
+      return true;
    }
 }

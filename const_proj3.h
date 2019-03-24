@@ -1,6 +1,9 @@
 #ifndef _CONST_PROJ3_H_
 #define _CONST_PROJ3_H_
 
+#include <iostream>
+using namespace std;
+
    const int IMAGE_ROW = 10;
    const int IMAGE_COL = 18;
    const int COLOR_MIN = 0;

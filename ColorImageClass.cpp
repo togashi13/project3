@@ -5,7 +5,7 @@ using namespace std;
 #include "ColorClass.h"
 #include "RowColumnClass.h"
 #include "ColorImageClass.h"
-
+#include "clearFileInput.h"
 
 
 
@@ -235,3 +235,9 @@ bool ColorImageClass::readInImage(string fileName)
    return false;   
    
 }  
+
+void colorImageClass::clearFileInput(ifstream &inFile)
+{
+   inFile.clear();
+   inFile.ignore(200, '\n');
+}

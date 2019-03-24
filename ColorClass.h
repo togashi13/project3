@@ -1,7 +1,6 @@
 #ifndef _COLORCLASS_H_
 #define _COLORCLASS_H_
 
-#include "globf_proj3.h"
 class ColorClass
 {
    private:
@@ -10,7 +9,7 @@ class ColorClass
       int blue;
       //additional member functions must be private
       //{}default ctor set to full white.
-      bool clippixels(     
+      bool clipPixels(     
            int colorR,
            int colorG,
            int colorB
@@ -71,5 +70,8 @@ class ColorClass
 
       bool readInColor(ifstream &colorFile);
 };
+
+      void clearFileInput(ifstream &inFile);
+
 
 #endif
