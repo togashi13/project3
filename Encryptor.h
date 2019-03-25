@@ -3,7 +3,7 @@
 
 #include "const_proj3.h"
 #include "ColorClass.h"
-#include "ColorImageClass.h"
+// #include "ColorImageClass.h"
 #include "RowColumnClass.h"
 #include <iostream>
 
@@ -16,9 +16,8 @@ private:
    int mRows;
    int mCols;
 
-   void adjustMessage(int nRows, int nCols);
-   void setEven(int &val);
-   void setOdd(int &val);
+   int setEven(int val);
+   int setOdd(int val);
 
    void encodePixel(ColorClass &pixel, int colorValue);
 
@@ -36,7 +35,7 @@ public:
 
    bool encodeImage(ColorImageClass &image, int sRow, int sCol);
 
-   bool decodeImage(ColorImageClass &image);
+   void decodeImage(ColorImageClass &image);
 
    void clearFileInput(ifstream &inFile);
 

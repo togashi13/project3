@@ -2,7 +2,7 @@ all: project3.exe
 
 
 
-project3.o: project3.cpp ColorClass.h RowColumnClass.h ColorImageClass.h  
+project3.o: project3.cpp ColorClass.h RowColumnClass.h ColorImageClass.h printMenu.h 
 	g++ -Wall -c  project3.cpp -o project3.o
 
 clipInt.o: clipInt.cpp
@@ -26,11 +26,15 @@ ColorImageClass.o: ColorImageClass.cpp ColorImageClass.h const_proj3.h ColorClas
 Encryptor.o: Encryptor.cpp Encryptor.h ColorImageClass.h const_proj3.h ColorClass.h RowColumnClass.h
 	g++ -Wall -c  Encryptor.cpp -o Encryptor.o 
 
+printMenu.o: printMenu.cpp
+	g++ -Wall -c printMenu.cpp -o printMenu.o
+
+checkValidInput.o: checkValidInput.cpp printMenu.h const_proj3.h
+	g++ -Wall -c checkValidInput.cpp -o checkValidInput.o
 
 
-
-project3.exe: project3.o ColorClass.o RowColumnClass.o ColorImageClass.o clipInt.o Encryptor.o
-	g++ -Wall  project3.o ColorClass.o RowColumnClass.o ColorImageClass.o clipInt.o Encryptor.o -o project3.exe
+project3.exe: project3.o ColorClass.o RowColumnClass.o ColorImageClass.o clipInt.o Encryptor.o printMenu.o checkValidInput.o
+	g++ -Wall  project3.o ColorClass.o RowColumnClass.o ColorImageClass.o clipInt.o Encryptor.o printMenu.o checkValidInput.o -o project3.exe
 
 clean: 
 	rm -f *.o *.exe 

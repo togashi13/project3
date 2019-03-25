@@ -28,41 +28,43 @@ Encryptor::~Encryptor()
 }
 
 
-void Encryptor::setEven(int &val)
+int Encryptor::setEven(int val)
 {
    if (val % 2 == 1)
    {
       val -= 1;
    }
+   return val;
 }
 
-void Encryptor::setOdd(int &val)
+int Encryptor::setOdd(int val)
 {
    if (val % 2 == 0)
    {
       val += 1;
    }
+   return val;
 }
 
 void Encryptor::encodePixel(ColorClass &pixel, int colorValue)
 {
    if (colorValue == 0)
    {
-      pixel.setTo(setEven(red), setEven(green), setEven(blue));
+      pixel.setTo(setEven(pixel.getRed()), setEven(pixel.getGreen()), setEven(pixel.getBlue()));
    }else if(colorValue == 1){
-      pixel.setTo(setOdd(red), setEven(green), setEven(blue));
+      pixel.setTo(setOdd(pixel.getRed()), setEven(pixel.getGreen()), setEven(pixel.getBlue()));
    }else if(colorValue == 2){
-      pixel.setTo(setEven(red), setOdd(green), setEven(blue));
+      pixel.setTo(setEven(pixel.getRed()), setOdd(pixel.getGreen()), setEven(pixel.getBlue()));
    }else if(colorValue == 3){
-      pixel.setTo(setEven(red), setEven(green), setOdd(blue));
+      pixel.setTo(setEven(pixel.getRed()), setEven(pixel.getGreen()), setOdd(pixel.getBlue()));
    }else if(colorValue == 4){
-      pixel.setTo(setOdd(red), setOdd(green), setOdd(blue));
+      pixel.setTo(setOdd(pixel.getRed()), setOdd(pixel.getGreen()), setOdd(pixel.getBlue()));
    }else if(colorValue == 5){
-      pixel.setTo(setOdd(red), setOdd(green), setEven(blue));
+      pixel.setTo(setOdd(pixel.getRed()), setOdd(pixel.getGreen()), setEven(pixel.getBlue()));
    }else if(colorValue == 6){
-      pixel.setTo(setOdd(red), setEven(green), setOdd(blue));
+      pixel.setTo(setOdd(pixel.getRed()), setEven(pixel.getGreen()), setOdd(pixel.getBlue()));
    }else if(colorValue == 7){
-      pixel.setTo(setEven(red), setOdd(green), setOdd(blue));
+      pixel.setTo(setEven(pixel.getRed()), setOdd(pixel.getGreen()), setOdd(pixel.getBlue()));
    }      
 }
 
@@ -119,14 +121,12 @@ bool Encryptor::readInMessage(string fileName)
    if (inFile.fail())
    {
       clearFileInput(inFile);
-      cout << "Error Found in Image File: " 
-      << "The Row and Column should be Integers " << endl;
+      cout << "Error: The Row and Column should be Integers " << endl;
       return false;
    }
    if (row < 0 || column < 0)
    {
-      cout << "Error Found in Image File: " 
-      << "The Row and Column should be Nonnegative Integers " << endl;
+      cout << "Error: The Row and Column should be Nonnegative Integers " << endl;
       return false;
    }
 
@@ -148,15 +148,15 @@ bool Encryptor::readInMessage(string fileName)
          if (inFile.fail())
          {
             clearFileInput(inFile);
-            cout << "Error Found in Message File: " 
-            << "They should be Integers " << endl;
+            cout << "Error: Reading message value at row/col: " << rIndex 
+            << " " << cIndex << endl;
             return false;
          }
          if (message[rIndex][cIndex] < 0 || message[rIndex][cIndex] > 7)
          {
-         cout << "Error Found in Image File: " 
-         << "They should be in [0,7] " << endl;
-         return false;
+            cout << "Error Found in Image File: " 
+            << "They should be in [0,7] " << endl;
+            return false;
          }
       }
    }
@@ -164,7 +164,6 @@ bool Encryptor::readInMessage(string fileName)
    inFile >> extraNumber;
    if (inFile.eof())
    {
-      cout << "end of read message file!" << endl;
       return true;
    }
 
@@ -186,29 +185,33 @@ bool Encryptor::encodeImage(ColorImageClass &image, int sRow, int sCol)
        sCol < 0)
    {
       cout << "starting position not in range !" << endl;
+      return false;
    }else
    {
       for (int rIndex = 0; rIndex < mRows; ++rIndex)
       {
          for (int cIndex = 0; cIndex < mCols; ++cIndex)
          {
-            if (rIndex + sRow <=image.getRows() && cIndex + sCol < = image.getCols())
-            encodePixel(palette, message[rIndex][cIndex]);
-            pos.setRowCol(rIndex + sRow, cIndex + sCol);
-            image.setColorAtLocation(pos, palette);
-            //error check
+            if (rIndex + sRow <= image.getRows() && cIndex + sCol <= image.getCols())
+            {  
+               pos.setRowCol(rIndex + sRow, cIndex + sCol);
+               image.getColorAtLocation(pos, palette);
+               encodePixel(palette, message[rIndex][cIndex]);
+               image.setColorAtLocation(pos, palette);
+            }
          }
       }
+      return true;
    }
 }
 
-bool Encryptor::decodeImage(ColorImageClass &image)
+void Encryptor::decodeImage(ColorImageClass &image)
 {
    ColorClass palette;
    RowColumnClass pos;
-   for (int rIndex = 0; rIndex < mRows; ++rIndex)
+   for (int rIndex = 0; rIndex < image.getRows(); ++rIndex)
    {
-      for (int cIndex = 0; cIndex < mCols; ++cIndex)
+      for (int cIndex = 0; cIndex < image.getCols(); ++cIndex)
       {  
          pos.setRowCol(rIndex, cIndex);
          image.getColorAtLocation(pos, palette);

@@ -171,16 +171,13 @@ bool ColorClass::readInColor(ifstream &colorFile)
    if (colorFile.fail()) 
    {
       clearFileInput(colorFile);
-      cout << "Error Found in Image File: " 
-      << "The Color Value should be Integer " 
-      << "not Space or other types " << endl;
-      exit(1);
+      cout << "Error: Reading color from file" << endl;
+      return false;
    }
 
    if (setTo(redVal, greenVal, blueVal))
    {
-      cout << "Error Found in Image File: The Color Value of Color " 
-      << "should be [ " << MIN_COLOR_VALUE << "  " 
+      cout << "Error: The Color Value of Color should be [ " << MIN_COLOR_VALUE << " " 
       << MAX_COLOR_VALUE << " ]" << endl;
       return false;
    }else{
@@ -202,5 +199,5 @@ void ColorClass::clearUserInput()
 
 void ColorClass::outputColor(ofstream &outFile)
 {
-    outFile << red << "  " << green << "  " << blue << "  ";
+    outFile << red << " " << green << " " << blue << " ";
 }

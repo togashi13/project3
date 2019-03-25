@@ -210,21 +210,23 @@ bool ColorImageClass::readInImage(string fileName)
    {
       for (int cInd = 0; cInd < numColumns; cInd++)
       {
-   
-
-         pixels[rInd][cInd].readInColor(inFile);
+         if (!pixels[rInd][cInd].readInColor(inFile))
+         {
+            cout << "Error: Reading image pixel at row: " << rInd << " "
+            << "col: " << cInd << endl;
+            return false;
+         }
       }
    }
 
    inFile >> extraNumber;
    if (inFile.eof())
    {
-      cout << "end of programme!" << endl;
       return true;
    }
 
    inFile.close();
-   cout << "Error Found in Image File : Total Number of "
+   cout << "Error: Total Number of "
    << "the Numbers in File is not consistant with Row and Column " << endl;
    return false;   
    
@@ -243,7 +245,7 @@ void ColorImageClass::clearUserInput()
 }
 
 
-void ColorImageClass::outputFile()
+bool ColorImageClass::outputFile()
 {
     clearUserInput();
     string fileName;
@@ -251,8 +253,14 @@ void ColorImageClass::outputFile()
     cin >> fileName;
     ofstream outFile;
     outFile.open(fileName.c_str());
+    if (outFile.fail())
+    {
+
+      cout << "Unable to open output file" << endl;
+      return false;
+    }
     outFile << MAGIC_NUMBER << '\n';
-    outFile << numColumns << "  " << numRows << "  " << '\n';
+    outFile << numColumns << " " << numRows << " " << '\n';
     outFile << MAX_COLOR_VALUE << '\n';
     for (int i = 0; i < numRows; i++)
     {
@@ -264,6 +272,7 @@ void ColorImageClass::outputFile()
     }
     
     outFile.close();
+    return true;
 }
 
 

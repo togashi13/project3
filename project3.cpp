@@ -1,11 +1,13 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 #include "const_proj3.h"
 #include "ColorClass.h"
 #include "RowColumnClass.h"
 #include "ColorImageClass.h"
 #include "Encryptor.h"
-
+#include "printMenu.h"
+#include "checkValidInput.h"
 //{}header
 
 //Do we need to consider it being other type: setRow, setCol.
@@ -22,166 +24,82 @@ using namespace std;
 
 
 int main(int argc, char const *argv[])
-
-{
+{  
+   if (argc != 2)
+   {
+      cout << "Usage: ./project3.exe <startPPM.ppm>" << endl;
+      exit (2);
+   }
    string fileName;
    int sRow;
    int sCol;
+   int choice;
+   bool validInputFound = false;
+   cout << "Reading initial image from: " << argv[1] << endl;
+   ColorImageClass testImage;
+   Encryptor testEnc;
+   if (testImage.readInImage(argv[1]))
+   {
+      cout <<  "Image read successful: Yes" << endl;
+   }else
+   {
+      cout << "Image read successful: No" << endl;
+      cout << "Error: While reading the image, an error was encountered." <<
+       " Exiting the program!" << endl;
+      exit(3);
+   }
 
-  // ColorClass testColor;
-  // RowColumnClass testRowCol;
-  // RowColumnClass testRowColOther(111, 222);
-  ColorImageClass testImage;
-  Encryptor testEnc;
-  testImage.readInImage(argv[1]);
-  cout << "Enter name of file containing message:";
-  cin >> fileName;
-  cout << "Enter row and column for message placement:";
-  cin >> sRow >> sCol;
-  testEnc.encodeImage(testImage, sRow, sCol);
-  testImage.outputFile();
 
-  // ColorImageClass testImages[3];
+   checkValidInput(validInputFound, choice);
 
-  // //Test some basic ColorClass operations...
-  // cout << "Initial: ";
-  // testColor.printComponentValues();
-  // cout << endl;
+   while (choice != 4)
+   {
+      if (choice == 1)
+      {  
+         checkValidInput(validInputFound, fileName, sRow, sCol);
 
-  // testColor.setToBlack();
-  // cout << "Black: ";
-  // testColor.printComponentValues();
-  // cout << endl;
+         if (testEnc.readInMessage(fileName))
+         {
 
-  // testColor.setToGreen();
-  // cout << "Green: ";
-  // testColor.printComponentValues();
-  // cout << endl;
+            if (testEnc.encodeImage(testImage, sRow, sCol))
+            {
+               cout << "Message encode successful: Yes" << endl;
+            }else {
+               cout << "Message encode successful: No" << endl;
+            }
 
-  // testColor.adjustBrightness(0.5);
-  // cout << "Dimmer Green: ";
-  // testColor.printComponentValues();
-  // cout << endl;
+         }else{
+            cout << "Message encode successful: No" << endl;
+         }
 
-  // //Test some basic RowColumnClass operations...
-  // cout << "Want defaults: ";
-  // testRowCol.printRowCol();
-  // cout << endl;
+         
 
-  // testRowCol.setRowCol(2, 8);
-  // cout << "Want 2,8: ";
-  // testRowCol.printRowCol();
-  // cout << endl;
+      }
 
-  // cout << "Want 111, 222: ";
-  // testRowColOther.printRowCol();
-  // cout << endl;
+      else if (choice == 2)
+      {
+         testEnc.decodeImage(testImage);
+         cout << "Image modified to decoded image contents" << endl;
 
-  // testRowColOther.setRowCol(4, 2);
-  // testRowCol.addRowColTo(testRowColOther);
-  // cout << "Want 6,10: ";
-  // testRowCol.printRowCol();
-  // cout << endl;
+      }
 
-  // //Test some basic ColorImageClass operations...
-  // testColor.setToRed();
-  // testImage.initializeTo(testColor);
-
-  // testRowCol.setRowCol(555, 5);
-  // cout << "Want: Color at [555,5]: Invalid Index!" << endl;
-  // cout << "Color at ";
-  // testRowCol.printRowCol();
-  // cout << ": ";
-  // if (testImage.getColorAtLocation(testRowCol, testColor))
-  // {
-  //   testColor.printComponentValues();
-  // }
-  // else
-  // {
-  //   cout << "Invalid Index!";
-  // }
-  // cout << endl;
-
-  // testRowCol.setRow(4);
-  // cout << "Want: Color at [4,5]: R: 1000 G: 0 B: 0" << endl;
-  // cout << "Color at ";
-  // testRowCol.printRowCol();
-  // cout << ": ";
-  // if (testImage.getColorAtLocation(testRowCol, testColor))
-  // {
-  //   testColor.printComponentValues();
-  // }
-  // else
-  // {
-  //   cout << "Invalid Index!";
-  // }
-  // cout << endl;
-
-  // //Set up an array of images of different colors
-  // testColor.setToRed();
-  // testColor.adjustBrightness(0.25);
-  // testImages[0].initializeTo(testColor);
-  // testColor.setToBlue();
-  // testColor.adjustBrightness(0.75);
-  // testImages[1].initializeTo(testColor);
-  // testColor.setToGreen();
-  // testImages[2].initializeTo(testColor);
-
-  // //Modify a few individual pixel colors
-  // testRowCol.setRowCol(4, 2);
-  // testColor.setToWhite();
-  // testImages[1].setColorAtLocation(testRowCol, testColor);
-
-  // testRowCol.setRowCol(2, 4);
-  // testColor.setToBlack();
-  // testImages[2].setColorAtLocation(testRowCol, testColor);
-
-  // //Add up all images in testImages array and assign result
-  // //to the testImage image
-  // testImage.addImages(3, testImages);
-  
-  // //Check some certain values
-  // cout << "Added values:" << endl;
-  // for (int colInd = 0; colInd < 8; colInd += 2)
-  // {
-  //   testRowCol.setRowCol(4, colInd);
-  //   cout << "Color at ";
-  //   testRowCol.printRowCol();
-  //   cout << ": ";
-  //   if (testImage.getColorAtLocation(testRowCol, testColor))
-  //   {
-  //     testColor.printComponentValues();
-  //   }
-  //   else
-  //   {
-  //     cout << "Invalid Index!";
-  //   }
-  //   cout << endl;
-  // }
-  
-  // for (int rowInd = 0; rowInd < 8; rowInd += 2)
-  // {
-  //   testRowCol.setRowCol(rowInd, 4);
-  //   cout << "Color at ";
-  //   testRowCol.printRowCol();
-  //   cout << ": ";
-  //   if (testImage.getColorAtLocation(testRowCol, testColor))
-  //   {
-  //     testColor.printComponentValues();
-  //   }
-  //   else
-  //   {
-  //     cout << "Invalid Index!";
-  //   }
-  //   cout << endl;
-  // }
-  
-  // cout << "Printing entire test image:" << endl;
-  // testImage.printImage();
-
-  return 0;
+      else if (choice == 3)
+      
+      {
+         if (testImage.outputFile())
+         {  
+            cout << "Image write successful: Yes" << endl;
+         } 
+         else
+         {
+            cout << "Image write successful: No" << endl;
+         }
+      }
+      checkValidInput(validInputFound, choice);
+   }
+   cout << "Thanks for using this program!" << endl;
+   return 0;
 }
-
 
 
 

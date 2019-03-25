@@ -75,7 +75,7 @@ public:
     
    bool readInImage(string fileName);
 
-   void outputFile();
+   bool outputFile();
 
    int getRows();
 
