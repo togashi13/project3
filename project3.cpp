@@ -1,11 +1,10 @@
 #include <iostream>
 using namespace std;
 #include "const_proj3.h"
-// #include "globf_pro2.h"
 #include "ColorClass.h"
 #include "RowColumnClass.h"
 #include "ColorImageClass.h"
-
+#include "Encryptor.h"
 
 //{}header
 
@@ -25,14 +24,23 @@ using namespace std;
 int main(int argc, char const *argv[])
 
 {
-
+   string fileName;
+   int sRow;
+   int sCol;
 
   // ColorClass testColor;
   // RowColumnClass testRowCol;
   // RowColumnClass testRowColOther(111, 222);
   ColorImageClass testImage;
+  Encryptor testEnc;
   testImage.readInImage(argv[1]);
+  cout << "Enter name of file containing message:";
+  cin >> fileName;
+  cout << "Enter row and column for message placement:";
+  cin >> sRow >> sCol;
+  testEnc.encodeImage(testImage, sRow, sCol);
   testImage.outputFile();
+
   // ColorImageClass testImages[3];
 
   // //Test some basic ColorClass operations...

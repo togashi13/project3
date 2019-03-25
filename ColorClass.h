@@ -34,6 +34,9 @@ class ColorClass
       void setToGreen();
       void setToBlue();
       void setToWhite();
+      void setToYellow();
+      void setToMagenta();
+      void setToCyan();
 
       bool setTo(
            int inRed,
@@ -80,6 +83,12 @@ class ColorClass
       void clearUserInput();
 
       void outputColor(ofstream &outFile);
+
+      int getRed();
+
+      int getGreen();
+
+      int getBlue();
 
 
 };

@@ -8,9 +8,7 @@ using namespace std;
 #include "const_proj3.h"
 
 
-// int clipInt(
-//      int colToClip
-//      );
+
 
 ColorClass::ColorClass()
 {
@@ -50,6 +48,37 @@ void ColorClass::setToWhite()
 {
    setTo(COLOR_MAX, COLOR_MAX, COLOR_MAX);
 }
+
+void ColorClass::setToYellow()
+{
+   setTo(COLOR_MAX, COLOR_MAX, COLOR_MIN);
+}
+
+void ColorClass::setToMagenta()
+{
+   setTo(COLOR_MAX, COLOR_MIN, COLOR_MAX);
+}
+
+void ColorClass::setToCyan()
+{
+   setTo(COLOR_MIN, COLOR_MAX, COLOR_MAX);
+}
+
+int ColorClass::getRed()
+{
+   return red;
+}
+
+int ColorClass::getGreen()
+{
+   return green;
+}
+
+int ColorClass::getBlue()
+{
+   return blue;
+}
+
 
 
 bool ColorClass::setTo(

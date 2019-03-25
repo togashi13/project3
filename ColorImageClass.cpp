@@ -25,61 +25,61 @@ void ColorImageClass::initializeTo(
                       ColorClass &inColor
                       )
 {
-      for (int i = 0; i < IMAGE_ROW; ++i)
+   for (int i = 0; i < numRows; ++i)
    {
-      for (int j = 0; j < IMAGE_COL; ++j)
+      for (int j = 0; j < numColumns; ++j)
       {
          pixels[i][j].setTo(inColor);
       }
    }
 }
 
-bool ColorImageClass::addImageTo(
-                      ColorImageClass &rhsImg
-                      )
-{
-   int numPixClipped = 0;
-   for (int i = 0; i < IMAGE_ROW; ++i)
-   {
-      for (int j = 0; j < IMAGE_COL; ++j)
-      {
-         if (pixels[i][j].addColor(rhsImg.pixels[i][j]))
-         {
-            numPixClipped++;
-         }
-      }
-   }  
-   return (numPixClipped > 0);
-}
+// bool ColorImageClass::addImageTo(
+//                       ColorImageClass &rhsImg
+//                       )
+// {
+//    int numPixClipped = 0;
+//    for (int i = 0; i < numRows; ++i)
+//    {
+//       for (int j = 0; j < numColumns; ++j)
+//       {
+//          if (pixels[i][j].addColor(rhsImg.pixels[i][j]))
+//          {
+//             numPixClipped++;
+//          }
+//       }
+//    }  
+//    return (numPixClipped > 0);
+// }
 
-bool ColorImageClass::addImages(
-                      int numImagesToAdd,
-                      ColorImageClass imagesToAdd []
-                      )
-{
-   int numClip = 0;
-   for (int i = 0; i < IMAGE_ROW; ++i)
-   {
-      for (int j = 0; j < IMAGE_COL; ++j)
-      {
-         pixels[i][j].setToBlack();
-      }
-   }
-   for (int i = 0; i < IMAGE_ROW; ++i)
-   {
-      for (int j = 0; j < IMAGE_COL; ++j)
-      {
-         for (int imageIndex = 0; imageIndex < numImagesToAdd; ++imageIndex)
-         {
-            if (pixels[i][j].addColor(imagesToAdd[imageIndex].pixels[i][j]))
-            {
-               numClip ++;
-            } 
-         }
-      }
-   }
-   return (numClip > 0);
-}
+// bool ColorImageClass::addImages(
+//                       int numImagesToAdd,
+//                       ColorImageClass imagesToAdd []
+//                       )
+// {
+//    int numClip = 0;
+//    for (int i = 0; i < numRows; ++i)
+//    {
+//       for (int j = 0; j < numColumns; ++j)
+//       {
+//          pixels[i][j].setToBlack();
+//       }
+//    }
+//    for (int i = 0; i < numRows; ++i)
+//    {
+//       for (int j = 0; j < numColumns; ++j)
+//       {
+//          for (int imageIndex = 0; imageIndex < numImagesToAdd; ++imageIndex)
+//          {
+//             if (pixels[i][j].addColor(imagesToAdd[imageIndex].pixels[i][j]))
+//             {
+//                numClip ++;
+//             } 
+//          }
+//       }
+//    }
+//    return (numClip > 0);
+// }
 
 bool ColorImageClass::setColorAtLocation(
                       RowColumnClass &inRowCol,
@@ -88,8 +88,8 @@ bool ColorImageClass::setColorAtLocation(
 {
    int setRow = inRowCol.getRow();
    int setCol = inRowCol.getCol();
-   if ((setRow < IMAGE_ROW) && (setRow >= 0) && 
-         (setCol < IMAGE_COL) && (setCol >= 0))
+   if ((setRow < numRows) && (setRow >= 0) && 
+         (setCol < numColumns) && (setCol >= 0))
    {
       pixels[setRow][setCol].setTo(inColor);
       return true;
@@ -105,8 +105,8 @@ bool ColorImageClass::getColorAtLocation(
 {
    int setRow = inRowCol.getRow();
    int setCol = inRowCol.getCol();
-   if ((setRow < IMAGE_ROW) && (setRow >= 0) && 
-         (setCol < IMAGE_COL) && (setCol >= 0))
+   if ((setRow < numRows) && (setRow >= 0) && 
+         (setCol < numColumns) && (setCol >= 0))
    {        
       outColor.setTo(pixels[setRow][setCol]);
       return true;
@@ -117,9 +117,9 @@ bool ColorImageClass::getColorAtLocation(
 
 void ColorImageClass::printImage()
 {
-   for (int i = 0; i < IMAGE_ROW; ++i)
+   for (int i = 0; i < numRows; ++i)
    {
-      for (int j = 0; j < IMAGE_COL; ++j)
+      for (int j = 0; j < numColumns; ++j)
       {
 
          if (j ==  17)
@@ -267,3 +267,23 @@ void ColorImageClass::outputFile()
 }
 
 
+ColorImageClass::~ColorImageClass()
+{
+    for (int r = 0; r < numRows; r++)
+    {
+        delete [] pixels[r];
+    }
+    delete [] pixels;
+    pixels = 0;
+}
+
+
+int ColorImageClass::getRows()
+{
+   return numRows;
+}
+
+int ColorImageClass::getCols()
+{
+   return numColumns;
+}

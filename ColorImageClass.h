@@ -4,7 +4,7 @@
 #include "const_proj3.h"
 #include "ColorClass.h"
 #include "RowColumnClass.h"
-
+#include <fstream>
 
 class ColorImageClass
 {
@@ -18,6 +18,8 @@ private:
 public:
    ColorImageClass();
    // default ctor set to full black
+
+   ~ColorImageClass();
 
    void initializeTo(
         ColorClass &inColor
@@ -66,16 +68,18 @@ public:
    //with this thing, you read in the image.   
 
        // This function aims to clear all the input in buffer
-  void clearFileInput(ifstream &inFile);
+   void clearFileInput(ifstream &inFile);
 
     // This function aims to clear all the input in buffer
-    void clearUserInput();
+   void clearUserInput();
     
-    bool readInImage(string fileName);
+   bool readInImage(string fileName);
 
-    void outputFile();
+   void outputFile();
 
+   int getRows();
 
+   int getCols();
 };
 
 #endif
