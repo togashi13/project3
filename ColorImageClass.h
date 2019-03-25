@@ -63,16 +63,17 @@ public:
    //  -- between each pixels.
 
    void readInImage(ifstream imageFile);
-   //with this thing, you read in the image.
+   //with this thing, you read in the image.   
 
        // This function aims to clear all the input in buffer
-    void clearFileInput(ifstream &inFile);
+  void clearFileInput(ifstream &inFile);
 
     // This function aims to clear all the input in buffer
     void clearUserInput();
     
     bool readInImage(string fileName);
 
+    void outputFile();
 
 
 };

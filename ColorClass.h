@@ -1,6 +1,10 @@
 #ifndef _COLORCLASS_H_
 #define _COLORCLASS_H_
 
+#include <fstream>
+#include <iostream>
+using namespace std;
+
 class ColorClass
 {
    private:
@@ -69,9 +73,17 @@ class ColorClass
       //{}"R: <red> G: <green> B: <blue>", no newl.
 
       bool readInColor(ifstream &colorFile);
-};
 
       void clearFileInput(ifstream &inFile);
+
+
+      void clearUserInput();
+
+      void outputColor(ofstream &outFile);
+
+
+};
+
 
 
 #endif

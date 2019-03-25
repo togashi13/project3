@@ -1,11 +1,12 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 #include "const_proj3.h"
 #include "ColorClass.h"
 #include "RowColumnClass.h"
 #include "ColorImageClass.h"
-#include "clearFileInput.h"
+// #include "clearFileInput.h"
 
 
 
@@ -15,16 +16,9 @@ using namespace std;
 
 ColorImageClass::ColorImageClass()
 {
- 
-
-
-   for (int i = 0; i < IMAGE_ROW; ++i)
-   {
-      for (int j = 0; j < IMAGE_COL; ++j)
-      {
-         pixels[i][j].setToBlack();
-      }
-   }
+    numRows = 0;
+    numColumns = 0;
+    pixels = 0;
 }
 
 void ColorImageClass::initializeTo(
@@ -225,7 +219,7 @@ bool ColorImageClass::readInImage(string fileName)
    inFile >> extraNumber;
    if (inFile.eof())
    {
-      cout << "successful" << endl;
+      cout << "end of programme!" << endl;
       return true;
    }
 
@@ -236,8 +230,40 @@ bool ColorImageClass::readInImage(string fileName)
    
 }  
 
-void colorImageClass::clearFileInput(ifstream &inFile)
+void ColorImageClass::clearFileInput(ifstream &inFile)
 {
    inFile.clear();
    inFile.ignore(200, '\n');
 }
+
+void ColorImageClass::clearUserInput()
+{
+   cin.clear();
+   cin.ignore(DEFAULT_CONSUME, '\n');
+}
+
+
+void ColorImageClass::outputFile()
+{
+    clearUserInput();
+    string fileName;
+    cout << "Enter name of file name to write image to: ";
+    cin >> fileName;
+    ofstream outFile;
+    outFile.open(fileName.c_str());
+    outFile << MAGIC_NUMBER << '\n';
+    outFile << numColumns << "  " << numRows << "  " << '\n';
+    outFile << MAX_COLOR_VALUE << '\n';
+    for (int i = 0; i < numRows; i++)
+    {
+        for (int j = 0; j < numColumns; j++)
+        {
+            pixels[i][j].outputColor(outFile);
+        }
+        outFile << '\n' ;
+    }
+    
+    outFile.close();
+}
+
+

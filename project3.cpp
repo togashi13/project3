@@ -31,7 +31,8 @@ int main(int argc, char const *argv[])
   // RowColumnClass testRowCol;
   // RowColumnClass testRowColOther(111, 222);
   ColorImageClass testImage;
-  testImage.readInImage("deer.ppm");
+  testImage.readInImage(argv[1]);
+  testImage.outputFile();
   // ColorImageClass testImages[3];
 
   // //Test some basic ColorClass operations...

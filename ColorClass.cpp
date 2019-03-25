@@ -1,11 +1,10 @@
 #include <iostream>
-#include <string>
 #include <fstream>
 using namespace std;
 
 #include "ColorClass.h"
 #include "clipInt.h"
-#include "clearFileInput.h"
+// #include "clearFileInput.h"
 #include "const_proj3.h"
 
 
@@ -146,7 +145,7 @@ bool ColorClass::readInColor(ifstream &colorFile)
       cout << "Error Found in Image File: " 
       << "The Color Value should be Integer " 
       << "not Space or other types " << endl;
-      return false;
+      exit(1);
    }
 
    if (setTo(redVal, greenVal, blueVal))
@@ -158,4 +157,21 @@ bool ColorClass::readInColor(ifstream &colorFile)
    }else{
       return true;
    }
+}
+
+void ColorClass::clearFileInput(ifstream &inFile)
+{
+   inFile.clear();
+   inFile.ignore(DEFAULT_CONSUME, '\n');
+}
+
+void ColorClass::clearUserInput()
+{
+   cin.clear();
+   cin.ignore(DEFAULT_CONSUME, '\n');
+}
+
+void ColorClass::outputColor(ofstream &outFile)
+{
+    outFile << red << "  " << green << "  " << blue << "  ";
 }
